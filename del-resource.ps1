@@ -13,16 +13,4 @@ $resources= Invoke-RestMethod -uri 'https://management.azure.com/subscriptions/<
 # Delete all resources which have not been changed since 20 days
 
 foreach ($resource in $resources)
-{
-$count=0
-$time=[datetime]::Parse($resource.changedTime)
-$datetime = (Get-Date).AddDays(-20)
-$utcDatetime = $datetime.ToUniversalTime()            
-if ($time -lt $utcDatetime)
-{
-$resource.id
-$time
-Write-Output "Deleting resource now"
-Remove-AzureRmResource -ResourceId $resource.id
-}
-}
+
