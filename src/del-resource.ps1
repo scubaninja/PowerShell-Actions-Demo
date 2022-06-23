@@ -1,6 +1,7 @@
 Connect-AzureRmAccount
 
 
+
 Select-AzureRmSubscription -SubscriptionName "<Subscription_Name>"
 
 $Headers=@{
@@ -14,4 +15,5 @@ $resources= Invoke-RestMethod -uri 'https://management.azure.com/subscriptions/<
 # Delete all resources which have not been changed since 20 days
 
 foreach ($resource in $resources)
+
 
