@@ -1,3 +1,3 @@
-# Azure-PWSH-Cleanup
+# PowerShell-Actions-Demo
 
-Demo repo for very out of date PWSH scripts
+Let's automate our PowerShell Scripts!
