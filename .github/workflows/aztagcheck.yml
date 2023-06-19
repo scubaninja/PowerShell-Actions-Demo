@@ -2,28 +2,30 @@
 
 name: Azure Tag Check
 
-# Controls when the workflow will run
 on:
   schedule:
-    - cron: '0 0 * * *' #Lookup cron numberes
+    - cron: '0 0 * * *'  # Run the script every day at midnight UTC
     
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    - workflow_dispatch: 
+    
 jobs:
-  check-tags: 
+  get_last_used_date:
     runs-on: ubuntu-latest
-    steps: 
-    - name: checkout code
-      uses: actions/checkout@v2
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - name: Setup PowerShell
+      uses: microsoft/setup-powershell@v1
       
-    - name: Install Azure CLI
+    - name: Login to Azure
+      id: login
       uses: azure/login@v1
-      
-    - name: Install Az PowerShell module
-      run: Install-Module -Name Az -Force
-      
-    - name: Run PowerShell script
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Execute script
       shell: pwsh
-      run: | #inject script here
+      run: |
+        ./${{ github.event.repository.name }}/GetAzResourceTags_AE.ps1
+
