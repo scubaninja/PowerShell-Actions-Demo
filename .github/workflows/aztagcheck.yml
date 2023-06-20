@@ -3,10 +3,14 @@
 name: Azure Tag Check
 
 on:
-  schedule:
-    - cron: '0 0 * * *'  # Run the script every day at midnight UTC
-    
-    - workflow_dispatch: 
+  on:
+    push:
+      branches: [ main ]
+    pull_request:
+      # The branches below must be a subset of the branches above
+      branches: [ main ]
+    schedule:
+      - cron: '0 0 * * *'  # Run the script every day at midnight UTC
     
 jobs:
   get_last_used_date:
