@@ -2,34 +2,30 @@
 
 name: Azure Tag Check
 
-on:
-  on:
-    push:
-      branches: [ main ]
-    pull_request:
-      # The branches below must be a subset of the branches above
-      branches: [ main ]
-    schedule:
+on: 
+  workflow_dispatch:
+  
+  schedule:
       - cron: '0 0 * * *'  # Run the script every day at midnight UTC
     
 jobs:
-  get_last_used_date:
+  get-last-used-date:
     runs-on: ubuntu-latest
+
     steps:
+    - name: Check Out
+      uses: actions/checkout@v3
     
-    - uses: actions/checkout@v2
-    
-    - name: Setup PowerShell
-      uses: microsoft/setup-powershell@v1
-      
-    - name: Login to Azure
-      id: login
+    - name: Login Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+    
     - name: Execute script
       shell: pwsh
       run: |
         ./${{ github.event.repository.name }}/GetAzResourceTags_AE.ps1
 
+
+
+    
