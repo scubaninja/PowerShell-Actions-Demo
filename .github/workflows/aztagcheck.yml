@@ -5,8 +5,8 @@ name: Azure Tag Check
 on: 
   workflow_dispatch:
   
-  schedule:
-      - cron: '0 0 * * *'  # Run the script every day at midnight UTC
+#  schedule:
+#      - cron: '0 0 * * *'  # Run the script every day at midnight UTC
     
 jobs:
   get-last-used-date:
